@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>someretical</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="images/favicon/site.webmanifest">
+
+  <meta name="description" content="personal website">
+
+  <meta property="og:title" content="someretical">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="personal website">
+  <meta property="og:image" content="img/og_image.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>
+      <a href="#home">someretical</a>
+    </h1>
+
+    <nav>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <section id="home">
+
+      <p>Hello and welcome to my personal website (kindly hosted by Github).</p>
+
+      <p>There's not much else to put here on my homepage so enjoy this extra large image of my cookie.</p>
+
+      <figure>
+
+        <img loading="lazy" alt="big cookie" src="images/icon.svg">
+
+        <figcaption>Chocolate chip cookie made with this <a href="https://adrian17.github.io/Gallifreyan/">Gallifreyan text translator</a>.</figcaption>
+      
+      </figure>
+
+    </section>
+
+    <section id="projects">
+      
+      <article>
+        
+        <h2>This website</h2>
+        
+        <p>I am not a big fan of front end development. I stay away from designing user interfaces even though I know a fair bit about what makes an engaging user interface. Most of the projects I have worked on tend to be something you would find in the back end.</p>
+        
+        <p>That is why this website is so simple. This website consists of a single HTML file, a single CSS file and a few images (no JS at all Woohoo!). I can only hope it loads fine on all the different combinations of user agents (the <a href="https://github.com/mdn/browser-compat-data">compatibility tables on MDN</a> only keep growing).</p>
+        
+        <p>Anyway, I hope you find the simplicity of this website comforting. In my opinion, there are too many over-the-top fancy websites with terrible loading times nowadays.</p>
+        
+        <p>The template of this website can be found <a href="https://github.com/cadars/john-doe">here</a> and my repository can be found <a href="https://github.com/someretical/someretical.github.io">here</a>.</p>
+      
+      </article>
+
+      <article>
+        
+        <h2>Gungeon Generator</h2>
+        
+        <p>I've spent a few hundred hours playing <a href="https://store.steampowered.com/app/311690/">Enter the Gungeon</a> and one of the features I love about the game is its intricate dungeon generation system. I found a blog post <a href="https://www.boristhebrave.com/2019/07/28/dungeon-generation-in-enter-the-gungeon/">here</a> that explained how it worked in some detail. While Enter the Gungeon was created with <a href="https://unity.com/">Unity</a> and hence C#, I decided to recreate the dungeon generation system in Python as it was a language I had not seriously used up until that point.</p>
+        
+        <p>I struggled a lot with implementing the graph algorithms as I had not formally learned graph theory (still haven't) but I got there in the end. Had a wild time Googling and browsing <a href="https://stackoverflow.com/">Stack Overflow</a> and I can now declare myself as a somewhat proficient <a href="https://numpy.org/">numpy</a> and <a href="https://networkx.org/">networkx</a> user :)</p>
+        
+        <p>Currently, the project is still in the works as I am working on converting the graphs into an ASCII 'bitmap'. This stage is also quite time-consuming but I don't believe it involves any complex maths theory so it's mainly just a LOT of logic that I have to bang my head over.</p>
+        
+        <p>The repository is <a href="https://github.com/someretical/GungeonGenerator">here</a>.</p>
+      
+      </article>
+
+      <article>
+
+        <h2>Theoretical Diary</h2>
+
+        <p>This project is my Magnum Opus at the time of writing. I wanted to get some practical experience with C++ after reading Bjarne Stroustrup's <a href="https://www.amazon.com.au/C-Programming-Language-Bjarne-Stroustrup/dp/0321563840">official C++ book</a> and decided to make a native desktop app with the <a href="https://www.qt.io/">Qt</a> framework. The inspiration for this app came from a mobile app called <a href="https://www.moodflow.co/">Moodflow</a> that didn't run very smoothly on my phone (probably because my phone wasn't very new).</p>
+
+        <p>I spent a bunch of time making the app which turned out pretty nice in the end. The Linux app image is only ~35Mb, while the Windows bundle is a lot larger 85Mb because of the Visual C++ runtime redistributable. Unfortunately, some features don't work on Windows. I had a terrible time unsuccessfully setting up a debug environment on Windows to try and troubleshoot the issue. So if you want all the functionality, you'll have to use the Linux version.</p>
+        
+        <p>I learnt a lot more than I imagined while building the app. It turned out to be somewhat similar to building a website despite my intentional decision NOT to choose <a href="https://www.electronjs.org/">Electron</a>. I can't say if it's harder than building a website since I haven't made a serious website with a database backend, API and all those fancy shenanigans.</p>
+
+        <p>Also, learning C++ from a C perspective was quite interesting as it provides so many abstractions but still allows the programmer to directly manipulate memory. It also gave me a deeper insight into how JS interpreters, namely <a href="https://v8.dev/">V8</a> and <a href="https://spidermonkey.dev/">SpiderMonkey</a>, works and where many JS features originated. Overall, I still feel like I've only touched the surface of C++.</p>
+
+        <p>The repository is <a href="https://github.com/someretical/TheoreticalDiary">here</a>.</p>
+
+        <figure>
+
+          <img loading="lazy" alt="Theoretical Diary icon" src="images/theoreticaldiary.svg">
+
+          <figcaption>I suppose I should thank Roger Penrose for the icon of Theoretical Diary.</figcaption>
+
+        </figure>
+
+      </article>
+
+      <article>
+
+        <h2>72bot</h2>
+
+        <p>A bridge between <a href="https://discord.com/">Discord</a> and <a href="https://www.minecraft.net/en-us">Minecraft</a>. Not 100% stable but it gets the job done. This was a quick project to satisfy some requirement I had while playing on a Minecraft server.<p>It's also all written in <a href="https://www.typescriptlang.org/">TypeScript</a> that transpiles without errors :)</p>
+
+        <p>The repository is <a href="https://github.com/someretical/72bot">here</a></p>
+
+      </article>
+
+      <article>
+
+        <h2>Starbot</h2>
+
+        <p>A Discord bot that archives messages with star emoji reactions. I learnt quite a bit about databases and REST APIs with this project. It uses the <a href="https://sequelize.org/">Sequelize ORM</a> but is aimed at <a href="https://www.postgresql.org/">PostgreSQL</a>. Unfortunately, progress kind of stalled when I encountered a few complicated issues when migrating to TypeScript. After that, I just lost motivation to keep on working on it.</p>
+
+        <p>This project was my first non-Scratch program :)</p>
+
+        <p>The repository is <a href="https://github.com/someretical/Starbot">here</a>.</p>
+
+      </article>
+
+    </section>
+
+    <section id="contact">
+
+      <p>You can contact me at <a href="mailto:someretical@gmail.com">someretical@gmail.com</a></p>
+
+      <p>My Github can be found <a href="https://github.com/someretical">here</a>.</p>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>
