@@ -1,0 +1,24 @@
+navbar_entries:
+  - title: about
+    url: about
+
+  - title: blog
+    url: blog
+
+project_entries:
+  - title: Yummers
+    url: yummers
+    desc: Discord bot that celebrates server members' birthdays 🎉 (YUMMERS!!! 😋) 
+    highlight: WIP
+
+old_project_entries:
+
+footer_entries:
+  - title: email
+    url: mailto:someretical@gmail.com
+
+  - title: github
+    url: https://github.com/someretical
+
+  - title: feed
+    url: feed.xml
