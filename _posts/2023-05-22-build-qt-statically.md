@@ -1,5 +1,5 @@
 ---
-title: Building Qt 6.5.0 statically on Windows 11
+title: Building Qt 6.5.0 statically on Windows 11 with MSVC
 layout: post
 author: Yankai Zhu
 tags: []
@@ -7,9 +7,9 @@ tags: []
 
 First, make sure that [Python 3](https://www.python.org/downloads/), [Ninja](https://ninja-build.org/) and [NASM](https://nasm.us/) are all installed. Furthermore, the paths to their executables must not contain any spaces!
 
-All commands are assumed to be run from the VS >=2022 x64 developer command prompt. Addtionally, pay close attention to the use of forward and backslashes throughout.
+All commands are assumed to be run from the VS >=2022 x64 developer command prompt. Additionally, pay close attention to the use of forward and backslashes throughout.
 
-First we need to statically compile OpenSSL. The environment variable `OPENSSL_BASE_DIR` should be set to the source directory (again, no spaces).
+Another prerequisite is that we need to statically compile OpenSSL. The environment variable `OPENSSL_BASE_DIR` should be set to the source directory (again, no spaces).
 
 ```
 > set OPENSSL_BASE_DIR=E:\openssl
@@ -23,9 +23,9 @@ First we need to statically compile OpenSSL. The environment variable `OPENSSL_B
 > nmake
 > nmake install
 ```
-The `no-shared` flag is required to build `.lib` files that can be linked against statically. We do not want `.lib` files that actually point to `.dll` files. If we get those sorts of library files then the linker will do its job just fine but the program will choke when it runs.
+The `no-shared` flag is required to build `.lib` files that can be linked statically. We do not want `.lib` files that point to `.dll` files because the linker will do its job just fine but the program will choke when it runs.
 
-Now we can configure and build Qt. All the paths should use backslashes as separators except for `OPENSSL_OUTPUT_DIR` which should use forward slashes! We will be building a bare bones version of Qt to reduce the build times.
+Now we can configure and build Qt. All the paths should use backslashes as separators except for `OPENSSL_OUTPUT_DIR` which should use forward slashes! We will be building a bare-bones version of Qt to reduce the build time.
 
 ```
 > set OPENSSL_OUTPUT_DIR=E:/openssl/VC-WIN64A-static
@@ -91,11 +91,11 @@ Now we can configure and build Qt. All the paths should use backslashes as separ
 > cmake --install .
 ```
 
-Now we need to permanently set the environment variable `OPENSSL_ROOT_DIR=%OPENSSL_OUTPUT_DIR%`. This is only required for building a static executable. If we deploy the exectuable to another machine where `OPENSSL_ROOT_DIR` is not set, it will still work.
+Now we need to permanently set the environment variable `OPENSSL_ROOT_DIR=%OPENSSL_OUTPUT_DIR%`. This is only required for building a static executable. It will still work we deploy the executable to another machine where `OPENSSL_ROOT_DIR` is not set.
 
-It should be easy enough to install the shared build for Qt using the official launcher. The launcher should also add the shared libraries to the PATH as well. If not, manually add the libraries. The path should be something like `E:\Qt\6.5.0\msvc2019_64\bin`. Make sure you use backslashes!
+It should be easy enough to install the shared build for Qt using the official launcher. The launcher should add the shared libraries to the PATH as well. If not, manually add the libraries. The path should be something like `E:\Qt\6.5.0\msvc2019_64\bin`. Make sure you use backslashes!
 
-The CMake configuration below will build a statically linked exectuble in the release configuration and a dynamically linked one in the debug configuration. Replace the paths with your own as necessary. Notice how all the path separators must be forward slashes too!
+The CMake configuration below will build a statically linked executable in the release configuration and a dynamically linked one in the debug configuration. Replace the paths with your own as necessary. Notice how all the path separators must be forward slashes too!
 
 ```cmake
 IF (CMAKE_BUILD_TYPE MATCHES Release)
@@ -111,12 +111,10 @@ ENDIF ()
 
 # Extras
 
-Adding the below configuration to the end of your `CMakeLists.txt` will build an exectuable that doesn't spawn a separate console window when you launch it. This only happens if you build the project in release mode though. 
+Adding the configuration below to the end of your `CMakeLists.txt` will build an exectuable that doesn't spawn a separate console window when you launch it. This only happens if you build the project in release mode though. 
 
 ```
 IF (CMAKE_BUILD_TYPE MATCHES Release)
-    # Let CMake generate the executable for windows without a console
-    # This has to be placed last for some reason
     set_target_properties(FileSyncer PROPERTIES WIN32_EXECUTABLE TRUE)
 ENDIF ()
 ```
