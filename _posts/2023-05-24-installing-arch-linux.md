@@ -342,11 +342,18 @@ prompt pure
 For more details see https://wiki.archlinux.org/title/Samba
 
 ```
-$ sudo smbpasswd -a $USER
-$ sudo mkdir /var/lib/samba/usershares
-$ sudo groupadd -r sambashare
-$ sudo chown root:sambashare /var/lib/samba/usershares
-$ sudo chmod 1770 /var/lib/samba/usershares
+$ sudo systemctl enable sddm.service
+$ sudo systemctl start sddm.service
+
+$ yay -S nss-mdns
+$ sudo vim /etc/nsswitch.conf
+
+# Add/edit the following line
+hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns
+
+$ sudo systemctl enable avahi-daemon.service
+$ sudo systemctl start avahi-daemon.service
+
 $ sudo vim /etc/samba/smb.conf
 
 [global]
@@ -354,11 +361,17 @@ $ sudo vim /etc/samba/smb.conf
   usershare max shares = 100
   usershare allow guests = yes
   usershare owner only = yes
+
+$ sudo smbpasswd -a $USER
+$ sudo mkdir /var/lib/samba/usershares
+$ sudo groupadd -r sambashare
+$ sudo chown root:sambashare /var/lib/samba/usershares
+$ sudo chmod 1770 /var/lib/samba/usershares
  
 $ sudo gpasswd sambashare -a $USER
 $ sudo systemctl enable smb.service
 $ sudo systemctl start smb.service
-$ sudo systemctl restart nmb.service
+$ sudo systemctl enable nmb.service
+$ sudo systemctl start nmb.service
+$ sudo reboot
 ```
-
-Log out and back in again
