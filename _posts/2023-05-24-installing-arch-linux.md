@@ -438,7 +438,7 @@ $ cd spotify-adblock
 $ make
 $ sudo make install
 
-$ nvim ~/.local/share/applications/spotify-adblock.desktop
+$ sudo nvim /usr/share/applications/spotify-adblock.desktop
 
 # Add the following lines
 [Desktop Entry]
