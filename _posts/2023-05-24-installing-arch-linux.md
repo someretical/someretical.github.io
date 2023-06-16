@@ -354,8 +354,9 @@ hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files
 $ sudo systemctl enable avahi-daemon.service
 $ sudo systemctl start avahi-daemon.service
 
-$ sudo vim /etc/samba/smb.conf
+$ sudo nvim /etc/samba/smb.conf
 
+# Add the following lines
 [global]
   usershare path = /var/lib/samba/usershares
   usershare max shares = 100
@@ -367,11 +368,88 @@ $ sudo mkdir /var/lib/samba/usershares
 $ sudo groupadd -r sambashare
 $ sudo chown root:sambashare /var/lib/samba/usershares
 $ sudo chmod 1770 /var/lib/samba/usershares
- 
 $ sudo gpasswd sambashare -a $USER
+
 $ sudo systemctl enable smb.service
 $ sudo systemctl start smb.service
 $ sudo systemctl enable nmb.service
 $ sudo systemctl start nmb.service
 $ sudo reboot
+```
+
+## Setup themes
+```
+$ sudo pacman -S kvantum-qt5
+
+$ git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
+$ cd WhiteSur-icon-theme
+$ ./install.sh
+
+$ git clone https://github.com/vinceliuice/WhiteSur-cursors.git
+$ cd WhiteSur-cursors
+$ ./install.sh
+
+$ git clone https://github.com/vinceliuice/WhiteSur-kde.git
+$ cd WhiteSur-kde
+$ ./install.sh
+
+$ nvim ~/.local/share/plasma/desktoptheme/WhiteSur-dark/metadata.desktop
+
+# Add the following lines:
+[ContrastEffect]
+contrast=2.0
+
+[BlurBehindEffect]
+enabled=false
+```
+
+## Discord clone
+
+```
+$ sudo nvim /usr/share/applications/discordclone.desktop
+
+# Add the following lines
+[Desktop Entry]
+Name=Discord Clone
+StartupWMClass=discord
+Comment=All-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
+GenericName=Internet Messenger
+Exec=/bin/bash -c "export XDG_CONFIG_HOME=~/.config/discord/CLONE; export TMPDIR=~/.config/discord/CLONE; /usr/bin/discord"
+Icon=discord
+Type=Application
+Categories=Network;InstantMessaging;
+Path=/usr/bin
+```
+
+## Install Rust
+
+```
+$ yay -S rustup
+$ rustup default stable
+```
+
+## Install Spotify adblocker
+
+Make sure to log into Spotify at least once before!
+
+```
+$ git clone https://github.com/abba23/spotify-adblock.git
+$ cd spotify-adblock
+$ make
+$ sudo make install
+
+$ nvim ~/.local/share/applications/spotify-adblock.desktop
+
+# Add the following lines
+[Desktop Entry]
+Type=Application
+Name=Spotify (adblock)
+GenericName=Music Player
+Icon=spotify-client
+TryExec=spotify
+Exec=env LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify %U
+Terminal=false
+MimeType=x-scheme-handler/spotify;
+Categories=Audio;Music;Player;AudioVideo;
+StartupWMClass=spotify
 ```
