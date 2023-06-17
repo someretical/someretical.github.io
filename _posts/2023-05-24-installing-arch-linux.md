@@ -24,6 +24,15 @@ Shows all the hardware network addresses
 - `ethernet` is usually `enp5s0`
 - `wifi` is usually `wlan0`, can also be `wlo1`
 
+If the wireless network adaptor is in a DOWN state, try running
+```
+# rfkill unblock wlan
+# rfkill unblock bluetooth
+# ip link set wlan0 up
+```
+
+For more information, see https://wiki.archlinux.org/title/Network_configuration/Wireless
+
 ```
 # iwctl
 ```
@@ -69,7 +78,6 @@ Give the Arch Linux website a ping!
 ```
 # ping -c 5 archlinux.org
 ```
-Check if internet is working.
 
 ## Check UEFI
 ```
@@ -141,6 +149,8 @@ Device             Start       End   Sectors   Size Type
 ```
 We do not want to touch anything anything with EFI, Microsoft or Windows in the type column. Notice how I have already formatted `nvme0n1p4` which is why it displays Linux Filesystem. If the type is blank and the size matches the size you allocated when you created the partition then it should be all good to format.
 
+If we do create a new partition using fdisk, then select `x` and then `f` to fix the partition ordering if necessary.
+
 Now we format the partition we selected. Make sure you have selected the right one otherwise you could lose very important data! Since we are installing Arch alongside W11, we don't need to format the EFI partition.
 ```
 # mkfs.ext4 /dev/[DEVICE]
@@ -153,7 +163,7 @@ Now we mount the partition we just formatted:
 
 **Don't mount the EFI one yet!!!**
 
-## Get fastest mirrors (optional)
+## Get fastest mirrors
 ```
 # cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 # ls /etc/pacman.d
@@ -161,11 +171,11 @@ Now we mount the partition we just formatted:
 # pacman -S pacman-contrib
 # rankmirrors -n 10 /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist
 ```
-This will optimise the pacman mirror list so we try to use the mirror closest to us for faster download speeds. It will take a while though...
+This will optimise the pacman mirror list so we try to use the mirror closest to us for faster download speeds. It will take a while though. The upside is that we don't end up trying to connect to some far away server and end up with a really slow download speed.
 
 ## Install Arch
 ```
-# pacstrap -i /mnt base base-devel linux-lts linux-lts-headers linux-firmware intel-ucode networkmanager pulseaudio vim sudo ntfs-3g dhcpcd git vulkan-radeon
+# pacstrap -i /mnt base base-devel linux-lts linux-lts-headers linux-firmware intel-ucode networkmanager pulseaudio neovim sudo ntfs-3g dhcpcd git vulkan-radeon
 ```
 This will take a while...
 
@@ -178,7 +188,8 @@ For AMD CPUs, use `amd-ucode` and for NVIDIA GPUs see https://wiki.archlinux.org
 # genfstab -U /mnt
 # genfstab -U /mnt >> /mnt/etc/fstab
 ```
-Makes linux mount the device at startup. 
+Makes linux mount the device at startup.
+
 **At this point, the boot partition will not be listed because it hasn't been mounted!**
 
 ## Change root
@@ -210,9 +221,9 @@ Uncomment the line `%wheel ALL=(ALL) ALL`
 - Press ESC, then type `:wq` to save the file
 
 ```
-# vim /etc/locale.gen
+# nvim /etc/locale.gen
 ```
-Uncomment the line with `en_GB.UTF8`
+Uncomment the lines with `en_GB.UTF8` and `en_US.UTF8`
 
 ```
 # echo LANG="en_GB.UTF-8" > /etc/locale.conf
@@ -225,7 +236,7 @@ Uncomment the line with `en_GB.UTF8`
 
 Open Vim again:
 ```
-# vim /etc/hosts
+# nvim /etc/hosts
 ```
 Add the lines:
 ```
@@ -245,18 +256,18 @@ Add the lines:
 # mkdir /boot/efi
 # mount /dev/[BOOT_PARTITION] /boot/efi
 # pacman -S grub os-prober efibootmgr dosfstools mtools
-# vim /etc/default/grub
+# nvim /etc/default/grub
 ```
-Make sure the boot partition is the same one that you ran `mkfs.ext4` on earlier!
+Make sure the boot partition is actually the boot partition. Usually this would be the first one (both logically and physically) and 100mb in size.
 
-Using Vim, uncomment the line `GRUB_DISABLE_OS_PROBER=false`.
+Using nvim, uncomment the line `GRUB_DISABLE_OS_PROBER=false`.
 
 Then run:
 ```
 # grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
-**os-prober may not detect W11 at this point. This is fine.**
+**os-prober will probably not detect W11 at this point. This is fine.**
 
 ```
 # exit
@@ -269,6 +280,7 @@ When it turns back on, enter the BIOS and move `grub_uefi` to the top priority o
 
 Upon booting again, log in, and run the following again:
 ```
+# mount /dev/[BOOT_PARTITION] /boot/efi
 # grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
@@ -293,6 +305,7 @@ $ git clone https://aur.archlinux.org/yay.git
 $ cd yay
 $ makepkg -si
 $ yay --version
+$ yay -Syu
 ```
 
 ## Install desktop environment
@@ -300,6 +313,143 @@ $ yay --version
 I will be installing KDE. Check out https://wiki.archlinux.org/title/KDE for more detailed instructions.
 ```
 $ yay -S xf86-video-amdgpu xorg-server
-$ yay -S plasma kde-applications
-$ sudo systemctl enable sddm
+$ yay -S plasma-meta kde-applications zsh
+
+# For a more conservative install
+$ yay -S kde-graphics-meta kde-multimedia-meta kde-network-meta kde-system-meta kde-utilities-meta zsh
+
+$ sudo systemctl enable sddm.service
+$ sudo systemctl start sddm.service
+```
+
+## Install `pure-prompt`
+```
+$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/pure"
+```
+
+Set `ZSH_THEME=""` in your `.zshrc` to disable oh-my-zsh themes.
+
+Add the following after `"source $ZSH/oh-my-zsh.sh"` in `.zshrc`:
+```
+fpath+=($HOME/.oh-my-zsh/pure)
+autoload -U promptinit; promptinit
+prompt pure
+```
+
+## Set up smb share
+
+For more details see https://wiki.archlinux.org/title/Samba
+
+```
+$ sudo systemctl enable sddm.service
+$ sudo systemctl start sddm.service
+
+$ yay -S nss-mdns
+$ sudo vim /etc/nsswitch.conf
+
+# Add/edit the following line
+hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns
+
+$ sudo systemctl enable avahi-daemon.service
+$ sudo systemctl start avahi-daemon.service
+
+$ sudo nvim /etc/samba/smb.conf
+
+# Add the following lines
+[global]
+  usershare path = /var/lib/samba/usershares
+  usershare max shares = 100
+  usershare allow guests = yes
+  usershare owner only = yes
+
+$ sudo smbpasswd -a $USER
+$ sudo mkdir /var/lib/samba/usershares
+$ sudo groupadd -r sambashare
+$ sudo chown root:sambashare /var/lib/samba/usershares
+$ sudo chmod 1770 /var/lib/samba/usershares
+$ sudo gpasswd sambashare -a $USER
+
+$ sudo systemctl enable smb.service
+$ sudo systemctl start smb.service
+$ sudo systemctl enable nmb.service
+$ sudo systemctl start nmb.service
+$ sudo reboot
+```
+
+## Setup themes
+```
+$ sudo pacman -S kvantum-qt5
+
+$ git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
+$ cd WhiteSur-icon-theme
+$ ./install.sh
+
+$ git clone https://github.com/vinceliuice/WhiteSur-cursors.git
+$ cd WhiteSur-cursors
+$ ./install.sh
+
+$ git clone https://github.com/vinceliuice/WhiteSur-kde.git
+$ cd WhiteSur-kde
+$ ./install.sh
+
+$ nvim ~/.local/share/plasma/desktoptheme/WhiteSur-dark/metadata.desktop
+
+# Add the following lines:
+[ContrastEffect]
+contrast=2.0
+
+[BlurBehindEffect]
+enabled=false
+```
+
+## Discord clone
+
+```
+$ sudo nvim /usr/share/applications/discordclone.desktop
+
+# Add the following lines
+[Desktop Entry]
+Name=Discord Clone
+StartupWMClass=discord
+Comment=All-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
+GenericName=Internet Messenger
+Exec=/bin/bash -c "export XDG_CONFIG_HOME=~/.config/discord/CLONE; export TMPDIR=~/.config/discord/CLONE; /usr/bin/discord"
+Icon=discord
+Type=Application
+Categories=Network;InstantMessaging;
+Path=/usr/bin
+```
+
+## Install Rust
+
+```
+$ yay -S rustup
+$ rustup default stable
+```
+
+## Install Spotify adblocker
+
+Make sure to log into Spotify at least once before!
+
+```
+$ git clone https://github.com/abba23/spotify-adblock.git
+$ cd spotify-adblock
+$ make
+$ sudo make install
+
+$ sudo nvim /usr/share/applications/spotify-adblock.desktop
+
+# Add the following lines
+[Desktop Entry]
+Type=Application
+Name=Spotify (adblock)
+GenericName=Music Player
+Icon=spotify-client
+TryExec=spotify
+Exec=env LD_PRELOAD=/usr/local/lib/spotify-adblock.so spotify %U
+Terminal=false
+MimeType=x-scheme-handler/spotify;
+Categories=Audio;Music;Player;AudioVideo;
+StartupWMClass=spotify
 ```
