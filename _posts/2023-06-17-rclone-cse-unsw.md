@@ -5,13 +5,14 @@ author: Yankai Zhu
 tags: []
 ---
 
-# Reasons for setting up rclone
+## Reasons for setting up rclone
 
 - [SSHFS](https://github.com/libfuse/sshfs) has now been archived on GitHub
-    - If you still want to use SSHFS, abiramen has a good post [here](https://abiram.me/cse-sshfs).
+    - If you still want to use SSHFS, abiramen has a good post [here](https://abiram.me/cse-sshfs)
+- The VSCode SSH FS extension doesn't provide intellisense
 - Because I can
 
-# Setup SSH keys
+## Setup SSH keys
 
 ```bash
 $ cat ~/.ssh/id_ed25519.pub
@@ -29,7 +30,7 @@ z5555555@vx55:~$ cat ~/.ssh/authorized_keys
 
 Ctrl+D to exit.
 
-# Setup rclone
+## Setup rclone
 
 My home folder is called someretical and yours will probably be something else. So replace someretical with your home folder/user name as necessary.
 
@@ -179,13 +180,13 @@ q) Quit config
 e/n/d/r/c/s/q> q
 ```
 
-## `fusermount` in PATH
+### `fusermount` in PATH
 
 > Since mounting requires the fusermount program, rclone will use the fallback PATH of `/bin:/usr/bin` in this scenario. Please ensure that fusermount is present on this PATH.
 
 If `which fusermount` is not in the above PATH, create a symlink with `ln -s /path/to/original /usr/bin/fusermount`.
 
-## Add entry to `fstab`
+### Add entry to `fstab`
 
 First run `id YOUR_USERNAME` to get your uid and gid.
 
@@ -223,7 +224,7 @@ The daemon-reload is necessary no matter what. If you still can't see `/mnt/unsw
 
 Now you should be able to access your CSE folder through `/mnt/unswcse`. You should also be able to execute binaries you've compiled on there as well. We set up the fstab entry so that the CSE folder will be automatically mounted when we try and access it (it's not mounted on boot). This should make it easier to recover if the network cuts out briefly.
 
-# Create CSE alias
+## Create CSE alias
 
 Add the following snippet to the end of your `.bashrc` or `.zshrc` or whatever file:
 ```bash
