@@ -320,6 +320,10 @@ $ yay -S kde-graphics-meta kde-multimedia-meta kde-network-meta kde-system-meta 
 
 $ sudo systemctl enable sddm.service
 $ sudo systemctl start sddm.service
+
+# Open KRunner with the Meta key
+$ kwriteconfig5 --file kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.krunner,/App,,toggleDisplay"
+$ qdbus org.kde.KWin /KWin reconfigure
 ```
 
 ## Install `pure-prompt`
@@ -342,9 +346,6 @@ prompt pure
 For more details see https://wiki.archlinux.org/title/Samba
 
 ```
-$ sudo systemctl enable sddm.service
-$ sudo systemctl start sddm.service
-
 $ yay -S nss-mdns
 $ sudo vim /etc/nsswitch.conf
 
