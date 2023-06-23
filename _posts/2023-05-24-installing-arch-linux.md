@@ -422,6 +422,12 @@ Categories=Network;InstantMessaging;
 Path=/usr/bin
 ```
 
+There is a big issue with this approach, namely certain desktop environment settings cannot be accessed the right way.
+- The default web browser is reset to Konqueror
+- File dialogs are always light theme
+
+There is no solution to the second but for the first, uninstaller the `kde-network-meta` package to uninstall Konqueror. There are a few more applications in the default web browser category which also need to be uninstalled for Discord to open links with Firefox by default.
+
 ## Install Rust
 
 ```
