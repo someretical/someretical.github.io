@@ -175,7 +175,7 @@ This will optimise the pacman mirror list so we try to use the mirror closest to
 
 ## Install Arch
 ```
-# pacstrap -i /mnt base base-devel linux-lts linux-lts-headers linux-firmware intel-ucode networkmanager pulseaudio neovim sudo ntfs-3g dhcpcd git vulkan-radeon
+# pacstrap -i /mnt base base-devel linux linux-headers linux-firmware intel-ucode networkmanager pulseaudio neovim sudo dhcpcd git vulkan-radeon
 ```
 This will take a while...
 
