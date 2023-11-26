@@ -8,7 +8,7 @@ tags: []
 The DualSense wireless controller is *supposed* to work out of the box for Linux, Windows and MacOS but this isn't really the case.
 
 - During testing, only MacOS worked seamlessly out of the box which is kind of ironic given the whole gaming on MacOS thing.
-- On Windows, some of the controls were not mapped properly which was annoying. I had to install additional mapping software like [DualSenseX](https://dualsensex.com/download/). The worst part is probably the fact that there exists a [*paid* version](https://store.steampowered.com/app/1812620/DSX/) of this software which is on Steam. However, I am aware of open source alternatives such as [DS4Windows](https://ds4-windows.com/) but I haven't tried it.
+- On Windows, some of the controls were not mapped properly which was annoying. I had to install additional mapping software like [DualSenseX](https://dualsensex.com/download/). The worst part is probably the fact that there exists a [*paid* version](https://store.steampowered.com/app/1812620/DSX/) of this software which is on Steam. I am aware of open source alternatives such as [DS4Windows](https://ds4-windows.com/) but I haven't tried it.
 - Getting it working properly on Linux was the most tedious experience out of all of operating systems tested.
 
 The testing involved pairing the device and visiting [https://gamepadtest.com/](https://gamepadtest.com/) and pressing all the buttons on the controller to see what effect they have. Usually when it's broken it means you press on button and the websites show you pressed/moved either the wrong button/joystick or *more than one of them*.
@@ -51,6 +51,6 @@ Then restart your computer for good measure. Apparently running `systemctl resta
 
 Afterwards, you can using `bluetoothctl` to connect to the controller. Then run `scan on` to show all Bluetooth events. To enable the controller's pairing mode, hold the the PlayStation logo button as well as the small button in the upper middle right region with a torch/loud sound icon next to it for five seconds. The light on the controller should start pulsing blue in sequences of two. Then look for a `new` event with the name `DualSense wireless controller` in it and copy paste the MAC address associated with it and run `connect [address]`. The pairing should be successful.
 
-To play games, it's recommended to use Steam with proton since it seamlessly maps everything for you. If you don't want to use Steam, there is a CLI mapper tool called `dualsensectl` which is installed via the `dualsensectl-git` package on the AUR. However, I have not used that tool, I only know it exists.
+To play games, it's recommended to use Steam with proton since it seamlessly maps everything for you. If you don't want to use Steam, there is a CLI mapper tool called `dualsensectl` which is installed via the `dualsensectl-git` package on the AUR. However, I have not tested that tool.
 
 For more information, see the Arch wiki page for [Gamepads](https://wiki.archlinux.org/title/Gamepad).
