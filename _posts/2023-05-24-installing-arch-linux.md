@@ -175,7 +175,7 @@ This will optimise the pacman mirror list so we try to use the mirror closest to
 
 ## Install Arch
 ```
-# pacstrap -i /mnt base base-devel linux-lts linux-lts-headers linux-firmware intel-ucode networkmanager pulseaudio neovim sudo ntfs-3g dhcpcd git vulkan-radeon
+# pacstrap -i /mnt base base-devel linux linux-headers linux-firmware intel-ucode networkmanager pulseaudio neovim sudo dhcpcd git vulkan-radeon
 ```
 This will take a while...
 
@@ -320,6 +320,10 @@ $ yay -S kde-graphics-meta kde-multimedia-meta kde-network-meta kde-system-meta 
 
 $ sudo systemctl enable sddm.service
 $ sudo systemctl start sddm.service
+
+# Open KRunner with the Meta key
+$ kwriteconfig5 --file kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.krunner,/App,,toggleDisplay"
+$ qdbus org.kde.KWin /KWin reconfigure
 ```
 
 ## Install `pure-prompt`
@@ -342,9 +346,6 @@ prompt pure
 For more details see https://wiki.archlinux.org/title/Samba
 
 ```
-$ sudo systemctl enable sddm.service
-$ sudo systemctl start sddm.service
-
 $ yay -S nss-mdns
 $ sudo vim /etc/nsswitch.conf
 
@@ -420,6 +421,12 @@ Type=Application
 Categories=Network;InstantMessaging;
 Path=/usr/bin
 ```
+
+There is a big issue with this approach, namely certain desktop environment settings cannot be accessed the right way.
+- The default web browser is reset to Konqueror
+- File dialogs are always light theme
+
+There is no solution to the second but for the first, uninstaller the `kde-network-meta` package to uninstall Konqueror. There are a few more applications in the default web browser category which also need to be uninstalled for Discord to open links with Firefox by default.
 
 ## Install Rust
 
