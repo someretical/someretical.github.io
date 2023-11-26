@@ -8,7 +8,7 @@ tags: []
 The DualSense wireless controller is *supposed* to work out of the box for Linux, Windows and MacOS but this isn't really the case.
 
 - During testing, only MacOS worked seamlessly out of the box which is kind of ironic given the whole gaming on MacOS thing.
-- On Windows, some of the controls were not mapped properly which was annoying. I had to install additional mapping software like [DualSenseX](https://dualsensex.com/download/). The worst part is probably the fact that there exists a [https://store.steampowered.com/app/1812620/DSX/](*paid* version) of this software which is on Steam. However, I am aware of open source alternatives such as [DS4Windows](https://ds4-windows.com/) but I haven't tried it.
+- On Windows, some of the controls were not mapped properly which was annoying. I had to install additional mapping software like [DualSenseX](https://dualsensex.com/download/). The worst part is probably the fact that there exists a [*paid* version](https://store.steampowered.com/app/1812620/DSX/) of this software which is on Steam. However, I am aware of open source alternatives such as [DS4Windows](https://ds4-windows.com/) but I haven't tried it.
 - Getting it working properly on Linux was the most tedious experience out of all of operating systems tested.
 
 The testing involved pairing the device and visiting [https://gamepadtest.com/](https://gamepadtest.com/) and pressing all the buttons on the controller to see what effect they have. Usually when it's broken it means you press on button and the websites show you pressed/moved either the wrong button/joystick or *more than one of them*.
