@@ -11,7 +11,7 @@ The DualSense wireless controller is *supposed* to work out of the box for Linux
 - On Windows, some of the controls were not mapped properly which was annoying. I had to install additional mapping software like [DualSenseX](https://dualsensex.com/download/). The worst part is probably the fact that there exists a [*paid* version](https://store.steampowered.com/app/1812620/DSX/) of this software which is on Steam. I am aware of open source alternatives such as [DS4Windows](https://ds4-windows.com/) but I haven't tried it.
 - Getting it working properly on Linux was the most tedious experience out of all of operating systems tested.
 
-The testing involved pairing the device and visiting [https://gamepadtest.com/](https://gamepadtest.com/) and pressing all the buttons on the controller to see what effect they have. Usually when it's broken it means you press on button and the websites show you pressed/moved either the wrong button/joystick or *more than one of them*.
+The testing involved pairing the device and visiting [https://gamepadtest.com/](https://gamepadtest.com/) and pressing all the buttons on the controller to see what effect they have. Usually when it's broken it means you press one button and the website shows you pressed/moved either the wrong button/joystick or *more than one of them*. Not sure how the second case occurs, but it somehow does.
 
 The main part of this post is dedicated to getting the controller work on Arch Linux since that is currently my daily driver.
 
