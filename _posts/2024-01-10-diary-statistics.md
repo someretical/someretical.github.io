@@ -60,7 +60,7 @@ The script worked well enough but it was Veusz that turned out to be the bottlen
 
 Now this image is absolutely huge. It is 11811x5905 pixels which is probably why it choked Veusz when it was generating it. However, it does look kind of nice at least? Purple is a pretty nice colour.
 
-Anyway, I (with a lot of help from ChatGPT) wrote *another* script using `matplotlib` to generate a better visualisation yesterday.
+Anyway, I (with a lot of help from ChatGPT) wrote *another* script using `matplotlib` to generate a better visualisation yesterday. Since the script is rather long, I will attach it at the bottom of the post.
 
 ![Alt text](/assets/images/multigraph-linear.png)
 
@@ -81,3 +81,108 @@ Then there are the two? days where I completely forgot to write an entry. Kind o
 Now there is one thing left which I haven't discussed which is why I started writing longer entries all of a sudden after mid April 2022 but that's a story for another day.
 
 Anyway, that's it for this post. Don't know about the next one though 🙃
+
+```python
+import os
+from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter, MonthLocator
+from matplotlib.ticker import ScalarFormatter
+
+
+# Function to count words in a file
+def count_words(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+        words = content.split()
+        return len(words)
+
+
+# Function to plot the data for a specific year
+def plot_data(ax, dates, word_counts, year):
+    color = 'tab:blue'
+
+    ax.bar(dates, word_counts, label='Daily Word Count', width=1, color=color)
+
+    ax.xaxis.set_major_locator(MonthLocator())
+    ax.xaxis.set_major_formatter(DateFormatter('%b'))
+
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Word Count')
+    ax.set_title(f'{year}')
+
+    for y in ax.get_yticks()[1:-1]:
+        ax.axhline(y=y, color='gray', linestyle='--', alpha=0.3)
+
+
+    ax2 = ax.twinx()
+
+    # Plot running total on the right y-axis
+    color = 'tab:red'
+    ax2.set_ylabel('Running Total')
+
+    ax2.plot(dates, running_totals, marker='s', markersize=0, linestyle='-', linewidth=0.5, color=color, label='Running Total')
+    ax2.yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
+    ax2.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
+    # ax2.semilogy(dates, running_totals, marker='s', markersize=0, linestyle='-', linewidth=0.5, color=color, label='Running Total')
+
+
+# Main script
+start_date = datetime(2020, 1, 1)
+end_date = datetime(2025, 12, 31)
+
+current_date = start_date
+current_year = start_date.year
+
+# Create a grid of subplots
+fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(12, 12))
+
+fig.suptitle('Diary Statistics', fontsize=16)
+
+dates = []
+word_counts = []
+running_totals = []
+
+subplot_row = 0
+subplot_col = 0
+
+while current_date <= end_date:
+    formatted_date = current_date.strftime('%d-%m-%y')
+    file_path = os.path.join('/mnt/d/someretical/Documents/Obsidian/entries', f'{formatted_date}.md')
+
+    if os.path.exists(file_path):
+        num_words = count_words(file_path)
+        dates.append(current_date)
+        word_counts.append(num_words)
+        running_total = sum(word_counts)
+        running_totals.append(running_total)
+    else:
+        dates.append(current_date)
+        word_counts.append(0)
+        running_total = sum(word_counts)
+        running_totals.append(running_total)
+
+    current_date += timedelta(days=1)
+
+    if current_date.year > current_year:
+        # Plot the data for the current year on the current subplot
+        plot_data(axs[subplot_row, subplot_col], dates, word_counts, current_year)
+
+        # Reset lists for the next year
+        dates = []
+        word_counts = []
+        running_totals = []
+        current_year = current_date.year
+
+        # Move to the next subplot
+        subplot_col += 1
+        if subplot_col == 2:
+            subplot_col = 0
+            subplot_row += 1
+
+
+# Adjust layout to prevent clipping of labels
+plt.tight_layout()
+
+plt.show()
+```
