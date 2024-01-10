@@ -1,6 +1,6 @@
 ---
 title: Analysing some diary statistics
-description: A lot of intersting lines and rectangles
+description: A lot of interesting lines and rectangles
 image: /assets/images/multigraph-linear.png
 layout: post
 author: Yankai Zhu
@@ -19,7 +19,7 @@ This diary statistical analysis actually started a while ago. Off the top of my 
 
 The last image features the "pixels" which was the main feature which I wanted to add. Near new years every year, I see a few reddit posts where people have recorded their ratings for each day of the entire year. And that's the original reason I started using [MoodFlow](https://www.moodflow.co/). It'll pop up again.
 
-But then I moved to obsidian as it featured a better editor and I basically haven't touched the Theoretical Diary since. A big part of the reason is that Theoretical Diary was based on the Qt framework and Obsidian is based on Electron and if it came to it I would rather work with webdev languages than wrangle C++ for a text editor. And since I would rather use Electron and Obsidian already exists, there was very little resistance to me adopting it. It's a pretty well polished application.
+But then I moved to Obsidian as it featured a better editor and I basically haven't touched the Theoretical Diary since. A big part of the reason is that Theoretical Diary was based on the Qt framework and Obsidian is based on Electron and if it came to it I would rather work with webdev languages than wrangle C++ for a text editor. And since I would rather use Electron and Obsidian already exists, there was very little resistance to me adopting it. It's a pretty well polished application.
 
 The next visualisation I made was using Veusz. However, I had to first generate the data in CSV format which could be read by it. So I wrote up this script real quick to do that.
 
@@ -70,7 +70,7 @@ And here is one that uses a logarithmic scale. I generated this one purely for t
 
 ![Alt text](/assets/images/multigraph-log.png)
 
-The weird solid bar at the bottom of the 2020 and 2021 plots has a bit of a complex backstory. Back then I used MoodFlow which allowed me to keep metrics like rating my mood every day. When I exported my MoodFlow data to Theoretical Diary I encapsulated those metrics which is why every day has at least 12 words. Those days where the br is flat at 12 just means I wrote no message for that day; I still left a rating however. This wasn't an unusual occurrence back then.
+The weird solid bar at the bottom of the 2020 and 2021 plots has a bit of a complex backstory. Back then I used MoodFlow which allowed me to keep metrics like rating my mood every day. When I exported my MoodFlow data to Theoretical Diary I encapsulated those metrics which is why every day has at least 12 words. Those days where the bar is flat at 12 just means I wrote no message for that day; I still left a rating however. This wasn't an unusual occurrence back then.
 
 When I exported my diary entries from Theoretical Diary into markdown format to use with Obsidian, another layer of encapsulation was added on top as Theoretical Diary stored data internally in a more complex format than what I had originally extracted from MoodFlow. It's all kind of similar to how a packet gets encapsulated over and over again as each layer of the network stack handles it. However, you can't really see this as by that time I was writing about 1000 words a day and you can't really see a bar with height 50 on a graph whose maximum is at 5000 or 3500.
 
