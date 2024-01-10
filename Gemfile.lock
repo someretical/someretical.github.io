@@ -277,6 +277,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages (~> 228)
+  jekyll-seo-tag
   moonwalk!
 
 BUNDLED WITH

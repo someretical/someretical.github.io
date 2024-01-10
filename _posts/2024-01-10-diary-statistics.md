@@ -1,5 +1,7 @@
 ---
 title: Analysing some diary statistics
+description: A lot of intersting lines and rectangles
+image: /assets/images/multigraph-linear
 layout: post
 author: Yankai Zhu
 tags: []

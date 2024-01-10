@@ -1,5 +1,6 @@
 ---
 title: Using the PS5 DualSense with Arch Linux
+description: I'm so grateful I didn't have to read the 5k page long Bluetooth spec
 layout: post
 author: Yankai Zhu
 tags: []

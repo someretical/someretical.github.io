@@ -1,5 +1,6 @@
 ---
 title: Building Qt 6.5.0 statically on Windows 11 with MSVC
+description: Learn a few new ways about mangling Linux and Windows customs...
 layout: post
 author: Yankai Zhu
 tags: []

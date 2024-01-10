@@ -1,5 +1,6 @@
 ---
 title: Using the Office Deployment Tool (ODT)
+description: Featuring Microsoft's anti-consumer practices once again
 layout: post
 author: Yankai Zhu
 tags: []

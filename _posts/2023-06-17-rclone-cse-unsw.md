@@ -1,5 +1,6 @@
 ---
 title: Setting up rclone for CSE@UNSW on Arch Linux
+description: And other ways to implement a *mostly* working solution
 layout: post
 author: Yankai Zhu
 tags: []

@@ -1,5 +1,6 @@
 ---
 title: Lessons and notes on reinstalling Windows 11
+description: Turns out ignorance *might* be strength
 layout: post
 author: Yankai Zhu
 tags: []
