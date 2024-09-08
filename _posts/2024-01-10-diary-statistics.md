@@ -7,7 +7,7 @@ tags: []
 
 A bit of a late happy new year to anyone reading this when it actually gets uploaded. As they say, better late than never I suppose.
 
-This diary statistical analysis actually started a while ago. Off the top of my head it's been about a year or two since I last worked on Theoretical Diary? But the app contained several ways of displaying entry statistics so here are a few pictures of how it was displayed. 
+This diary statistical analysis actually started a while ago. Off the top of my head it's been about a year or two since I last worked on Theoretical Diary? But the app contained several ways of displaying entry statistics so here are a few pictures of how it was displayed.
 
 ![Theoretical Diary Editor](/assets/images/editor.png "Theoretical Diary Editor")
 
@@ -60,7 +60,7 @@ The script worked well enough but it was Veusz that turned out to be the bottlen
 
 Now this image is absolutely huge. It is 11811x5905 pixels which is probably why it choked Veusz when it was generating it. However, it does look kind of nice at least? Purple is a pretty nice colour.
 
-Anyway, I (with a lot of help from ChatGPT) wrote *another* script using `matplotlib` to generate a better visualisation yesterday.
+Anyway, I (with a lot of help from ChatGPT) wrote _another_ script using `matplotlib` to generate a better visualisation yesterday.
 
 ![Alt text](/assets/images/multigraph-linear.png)
 
@@ -74,7 +74,7 @@ When I exported my diary entries from Theoretical Diary into markdown format to 
 
 When I fully transitioned to Obsidian, there was no more encapsulation for new entries so that's when you start seeing the gaps appear. I believe a few of those are due to me going on camping trips where I didn't have access to a laptop. In those cases, I recorded audio entries for those days but I never bothered transcribing those, even with AI help. I don't really write/narrate entries for the explicit sake of trying to jump back in time. I'm not even sure I have those recordings anymore.
 
-The majority of the rest of those gaps come from me being too sick to write/record anything for that day. Those are way fewer though. 
+The majority of the rest of those gaps come from me being too sick to write/record anything for that day. Those are way fewer though.
 
 Then there are the two? days where I completely forgot to write an entry. Kind of sucks to break a streak like that but it is a bit surprising how fast one might move on from that. If you compute the reliability percentages, it's still quite favourable.
 

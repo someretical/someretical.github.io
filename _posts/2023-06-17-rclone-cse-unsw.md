@@ -8,7 +8,7 @@ tags: []
 ## Reasons for setting up rclone
 
 - [SSHFS](https://github.com/libfuse/sshfs) has now been archived on GitHub
-    - If you still want to use SSHFS, abiramen has a good post [here](https://abiram.me/cse-sshfs)
+  - If you still want to use SSHFS, abiramen has a good post [here](https://abiram.me/cse-sshfs)
 - The VSCode SSH FS extension doesn't provide intellisense
 - Because I can
 
@@ -17,6 +17,7 @@ tags: []
 ```bash
 $ cat ~/.ssh/id_ed25519.pub
 ```
+
 If you see a line that starts with `ssh-ed25519`, that's a key you can use. Otherwise, generate a new key pair with `ssh-keygen -t ed25519`. You can skip the password and if you already have a lot of keys, you should put this new pair in separate files so you don't get rate limited because of too many failed login attempts. If you do put them in separate files, make sure to remember which files those are because we need to reference them with absolute paths later on!
 
 ```bash
@@ -151,7 +152,7 @@ disable_hashcheck> (enter)
 Edit advanced config?
 y) Yes
 n) No (default)
-y/n> 
+y/n>
 
 Configuration complete.
 Options:
@@ -162,7 +163,7 @@ Keep this "unswcse" remote?
 y) Yes this is OK (default)
 e) Edit this remote
 d) Delete this remote
-y/e/d> 
+y/e/d>
 
 Current remotes:
 
@@ -191,14 +192,17 @@ If `which fusermount` is not in the above PATH, create a symlink with `ln -s /pa
 First run `id YOUR_USERNAME` to get your uid and gid.
 
 Example output:
+
 ```
 uid=1000(someretical) gid=1000(someretical) groups=1000(someretical),98(power),998(wheel),987(storage),960(sambashare)
 ```
+
 The uid and gid are both 1000 in this case.
 
 Then run `rclone config paths` to get the absolute paths to your rclone config file and cache directory.
 
 Example output:
+
 ```
 Config file: /home/someretical/.config/rclone/rclone.conf
 Cache dir:   /home/someretical/.cache/rclone
@@ -206,9 +210,11 @@ Temp dir:    /tmp
 ```
 
 Prepare the following entry and save it to your clipboard:
+
 ```
 unswcse: /mnt/unswcse rclone noauto,nofail,_netdev,x-systemd.automount,config=/home/someretical/.config/rclone/rclone.conf,cache-dir=/home/someretical/.cache/rclone,allow-other,default-permissions,file-perms=0777,uid=1000,gid=1000,log-file=/tmp/rclone.log 0 0
 ```
+
 Replace `/home/someretical/.config/rclone/rclone.conf` and `/home/someretical/.cache/rclone` with your config file and cache directory respectively.
 
 Next, run `sudo nvim /etc/fstab` and append the entry to the end of the file. Press the insert key if it seems like you can only move the cursor. When you're done, press escape and type `:wq`.
@@ -216,10 +222,12 @@ Next, run `sudo nvim /etc/fstab` and append the entry to the end of the file. Pr
 Run `systemctl list-unit-files --type automount` to see which .automount unit files need to be restarted.
 
 In my case, I would run:
+
 ```
 $ sudo systemctl restart proc-sys-fs-binfmt_misc.automount
 $ sudo systemctl daemon-reload
 ```
+
 The daemon-reload is necessary no matter what. If you still can't see `/mnt/unswcse` after this, restart your computer with `sudo reboot`.
 
 Now you should be able to access your CSE folder through `/mnt/unswcse`. You should also be able to execute binaries you've compiled on there as well. We set up the fstab entry so that the CSE folder will be automatically mounted when we try and access it (it's not mounted on boot). This should make it easier to recover if the network cuts out briefly.
@@ -227,6 +235,7 @@ Now you should be able to access your CSE folder through `/mnt/unswcse`. You sho
 ## Create CSE alias
 
 Add the following snippet to the end of your `.bashrc` or `.zshrc` or whatever file:
+
 ```bash
 # code snippet copied from https://abiram.me/cse-sshfs#adding-our-aliases
 
@@ -262,9 +271,11 @@ function cse() {
 ```
 
 This will let you run commands like
+
 ```
 $ cse 1511
 $ cse give
 $ cse 1531
 ```
+
 in your local terminal without the hassle of typing out ssh ...

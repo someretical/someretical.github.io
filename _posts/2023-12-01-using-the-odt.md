@@ -16,13 +16,13 @@ To download the tool, visit [https://www.microsoft.com/en-us/download/details.as
 Place the `config.xml` file in the same directory as `setup.exe`.
 
 ```xml
-<!-- Office 365 client configuration file sample. To be used for Office 365 ProPlus apps, 
-     Office 365 Business apps, Project Pro for Office 365 and Visio Pro for Office 365. 
+<!-- Office 365 client configuration file sample. To be used for Office 365 ProPlus apps,
+     Office 365 Business apps, Project Pro for Office 365 and Visio Pro for Office 365.
 
-     For detailed information regarding configuration options visit: http://aka.ms/ODT. 
+     For detailed information regarding configuration options visit: http://aka.ms/ODT.
      To use the configuration file be sure to remove the comments
 
-     The following sample allows you to download and install the 64 bit version of the Office 365 ProPlus apps 
+     The following sample allows you to download and install the 64 bit version of the Office 365 ProPlus apps
      and Visio Pro for Office 365 directly from the Office CDN using the Current Channel
      settings  -->
 
@@ -40,7 +40,7 @@ Place the `config.xml` file in the same directory as `setup.exe`.
 </Configuration>
 ```
 
-You can change the `SourcePath` to what you want but it must be a path to a folder in the same volume as `setup.exe`. 
+You can change the `SourcePath` to what you want but it must be a path to a folder in the same volume as `setup.exe`.
 
 In my case, I have excluded Groove, Lync, OneDrive and Teams from being installed because I find them bloat. I've also specified the British English locale. You can change it to something like `en-us` if you prefer.
 
@@ -52,7 +52,7 @@ Once the configuration is done, run the following command to download the deploy
 
 Microsoft likes to use `/` to denote an argument as opposed to `-` and `--` which are favoured by Linux. And also instead of `./setup.exe`, you have to run `.\setup.exe` instead.
 
-If you poke around in the `SourcePath` directory, you'll find a bunch of `.cab` files. Those are the deployment files. Presumably it's so IT administrators only have to download it once from Microsoft's CDN and then they can install to all the devices on the network locally. 
+If you poke around in the `SourcePath` directory, you'll find a bunch of `.cab` files. Those are the deployment files. Presumably it's so IT administrators only have to download it once from Microsoft's CDN and then they can install to all the devices on the network locally.
 
 To install the files, run the following command.
 

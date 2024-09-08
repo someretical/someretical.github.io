@@ -5,7 +5,7 @@ author: Yankai Zhu
 tags: []
 ---
 
-First, obtain a USB and install [Ventoy](https://www.ventoy.net/en/index.html) on it. Then download the Arch Linux ISO and copy it onto the USB. 
+First, obtain a USB and install [Ventoy](https://www.ventoy.net/en/index.html) on it. Then download the Arch Linux ISO and copy it onto the USB.
 
 Before we boot from the live USB, open up the partition manager on Windows and create a new partition for Arch Linux on your boot drive. We are doing this step on Windows because it's much more user friendly than the Arch Linux command line setup environment. All you need to do is create the new partition with a reasonable size (such as 100gb). You do not need to format it or give it a name.
 
@@ -16,15 +16,19 @@ Now boot from the USB and select the Arch Linux ISO.
 If a command has a `#` in front of it, then it should be run as a root user. A `$` denotes a regular user.
 
 ## Connect to internet
+
 ```
 # ip a
 ```
+
 Shows all the hardware network addresses
+
 - `lo` can be ignored
 - `ethernet` is usually `enp5s0`
 - `wifi` is usually `wlan0`, can also be `wlo1`
 
 If the wireless network adaptor is in a DOWN state, try running
+
 ```
 # rfkill unblock wlan
 # rfkill unblock bluetooth
@@ -36,6 +40,7 @@ For more information, see https://wiki.archlinux.org/title/Network_configuration
 ```
 # iwctl
 ```
+
 Launches the internet wireless daemon configurator.
 
 ```
@@ -43,6 +48,7 @@ Launches the internet wireless daemon configurator.
 # station wlan0 get-networks
 # station wlan0 connect "NETWORK NAME"
 ```
+
 Replace `wlan0` with other address if necessary. Enter the right password for the internet as required.
 
 CTRL+D to exit `iwctl`.
@@ -50,6 +56,7 @@ CTRL+D to exit `iwctl`.
 ```
 # ip a
 ```
+
 Confirm the address has "state UP" in its description.
 
 In the example output, notice how `wlo1` has state UP:
@@ -75,40 +82,48 @@ In the example output, notice how `wlo1` has state UP:
 ```
 
 Give the Arch Linux website a ping!
+
 ```
 # ping -c 5 archlinux.org
 ```
 
 ## Check UEFI
+
 ```
 # ls /sys/firmware/efi/efivars
 ```
+
 If there is a whole bunch of text printed, then the BIOS is running UEFI. This guide only supports UEFI!
 
 ## Check time and date
+
 ```
 # timedatectl status
 ```
+
 Check if the time is correct. If it is, the skip the rest of this section.
 
 ```
 # timedatectl list-timezones
 # timedatectl set-timezone Australia/Sydney
 ```
+
 First command is optional if you already know which timezone you want.
 
 ## Partitioning
+
 ```
 # lsblk
 ```
+
 Lists all block devices connected to the computer.
 
 The live USB probably has the smallest size so it shouldn't be too hard to find it.
 
 In the example output below, you can see `nvme0n1p1` is the Windows boot partition. We can ignore `nvme0np2` because it is too small to be the partition we created. `nvme0n1p3` is the Windows partition. So the partition we created earlier should be sandwhiched between `nvme0n1p3` and whatever partition is last because the last one is the Windows recovery environment.
 
-
 Note that I have already installed Arch Linux onto `nvme0n1p4`, hence why the mountpoint is `/`.
+
 ```
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
 sda           8:0    0   1.8T  0 disk
@@ -125,12 +140,14 @@ nvme0n1     259:0    0 465.8G  0 disk
 ```
 
 To see more information about the devices, run the following commands:
+
 ```
 # fdisk -l
 # hdparm -i /dev/[DEVICE]
 ```
 
 Example output:
+
 ```
 Disk /dev/nvme0n1: 465.76 GiB, 500107862016 bytes, 976773168 sectors
 Disk model: Sabrent Rocket 4.0 500GB
@@ -147,16 +164,19 @@ Device             Start       End   Sectors   Size Type
 /dev/nvme0n1p4 307439616 614639615 307200000 146.5G Linux filesystem
 /dev/nvme0n1p5 975474688 976771071   1296384   633M Windows recovery environment
 ```
+
 We do not want to touch anything anything with EFI, Microsoft or Windows in the type column. Notice how I have already formatted `nvme0n1p4` which is why it displays Linux Filesystem. If the type is blank and the size matches the size you allocated when you created the partition then it should be all good to format.
 
 If we do create a new partition using fdisk, then select `x` and then `f` to fix the partition ordering if necessary.
 
 Now we format the partition we selected. Make sure you have selected the right one otherwise you could lose very important data! Since we are installing Arch alongside W11, we don't need to format the EFI partition.
+
 ```
 # mkfs.ext4 /dev/[DEVICE]
 ```
 
 Now we mount the partition we just formatted:
+
 ```
 # mount /dev/[DEVICE] /mnt
 ```
@@ -164,6 +184,7 @@ Now we mount the partition we just formatted:
 **Don't mount the EFI one yet!!!**
 
 ## Get fastest mirrors
+
 ```
 # cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 # ls /etc/pacman.d
@@ -171,12 +192,15 @@ Now we mount the partition we just formatted:
 # pacman -S pacman-contrib
 # rankmirrors -n 10 /etc/pacman.d/mirrorlist.bak > /etc/pacman.d/mirrorlist
 ```
+
 This will optimise the pacman mirror list so we try to use the mirror closest to us for faster download speeds. It will take a while though. The upside is that we don't end up trying to connect to some far away server and end up with a really slow download speed.
 
 ## Install Arch
+
 ```
 # pacstrap -i /mnt base base-devel linux linux-headers linux-firmware intel-ucode networkmanager pulseaudio neovim sudo dhcpcd git vulkan-radeon
 ```
+
 This will take a while...
 
 I have an Intel processor so I included the `intel-ucode` package. `vulkan-radeon` is for the AMD GPU.
@@ -184,30 +208,37 @@ I have an Intel processor so I included the `intel-ucode` package. `vulkan-radeo
 For AMD CPUs, use `amd-ucode` and for NVIDIA GPUs see https://wiki.archlinux.org/title/NVIDIA.
 
 ## Generate fstab
+
 ```
 # genfstab -U /mnt
 # genfstab -U /mnt >> /mnt/etc/fstab
 ```
+
 Makes linux mount the device at startup.
 
 **At this point, the boot partition will not be listed because it hasn't been mounted!**
 
 ## Change root
+
 ```
 # arch-chroot /mnt /bin/bash
 ```
+
 Change root from live USB to root partition.
 
 ```
 # systemctl enable NetworkManager
 # systemctl enable dhcpcd
 ```
+
 Enable internet on startup.
 
 ## Account setup
+
 ```
 # passwd
 ```
+
 Set password for root account.
 
 ```
@@ -216,13 +247,16 @@ Set password for root account.
 # usermod -aG wheel,storage,power [USERNAME]
 # visudo
 ```
+
 Uncomment the line `%wheel ALL=(ALL) ALL`
+
 - Press INSERT to go to replace mode so that it can be edited properly
 - Press ESC, then type `:wq` to save the file
 
 ```
 # nvim /etc/locale.gen
 ```
+
 Uncomment the lines with `en_GB.UTF8` and `en_US.UTF8`
 
 ```
@@ -235,15 +269,19 @@ Uncomment the lines with `en_GB.UTF8` and `en_US.UTF8`
 > The hostname should be composed of up to 64 7-bit ASCII lower-case alphanumeric characters or hyphens forming a valid DNS domain name. It is recommended that this name contains only a single label, i.e. without any dots. Invalid characters will be filtered out in an attempt to make the name valid, but obviously it is recommended to use a valid name and not rely on this filtering.
 
 Open Vim again:
+
 ```
 # nvim /etc/hosts
 ```
+
 Add the lines:
+
 ```
 127.0.0.1    localhost
 ::1    localhost
 127.0.1.1    [HOSTNAME].localdomain    localhost
 ```
+
 **Make sure the hostname matches!**
 
 ```
@@ -252,21 +290,25 @@ Add the lines:
 ```
 
 ## Install GRUB
+
 ```
 # mkdir /boot/efi
 # mount /dev/[BOOT_PARTITION] /boot/efi
 # pacman -S grub os-prober efibootmgr dosfstools mtools
 # nvim /etc/default/grub
 ```
+
 Make sure the boot partition is actually the boot partition. Usually this would be the first one (both logically and physically) and 100mb in size.
 
 Using nvim, uncomment the line `GRUB_DISABLE_OS_PROBER=false`.
 
 Then run:
+
 ```
 # grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
 **os-prober will probably not detect W11 at this point. This is fine.**
 
 ```
@@ -274,22 +316,27 @@ Then run:
 # umount -R /mnt
 # reboot
 ```
+
 Remove the USB after the computer shuts off.
 
 When it turns back on, enter the BIOS and move `grub_uefi` to the top priority of boot order.
 
 Upon booting again, log in, and run the following again:
+
 ```
 # mount /dev/[BOOT_PARTITION] /boot/efi
 # grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 # grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
 os-prober should now detect W11.
 
 ## Connect to the internet (again)
+
 ```
 $ nmtui
 ```
+
 Navigate the interface and connect to your network of choice.
 
 ### Predictable names
@@ -311,6 +358,7 @@ $ yay -Syu
 ## Install desktop environment
 
 I will be installing KDE. Check out https://wiki.archlinux.org/title/KDE for more detailed instructions.
+
 ```
 $ yay -S xf86-video-amdgpu xorg-server
 $ yay -S plasma-meta kde-applications zsh
@@ -327,6 +375,7 @@ $ qdbus org.kde.KWin /KWin reconfigure
 ```
 
 ## Install `pure-prompt`
+
 ```
 $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/pure"
@@ -335,6 +384,7 @@ $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/t
 Set `ZSH_THEME=""` in your `.zshrc` to disable oh-my-zsh themes.
 
 Add the following after `"source $ZSH/oh-my-zsh.sh"` in `.zshrc`:
+
 ```
 fpath+=($HOME/.oh-my-zsh/pure)
 autoload -U promptinit; promptinit
@@ -379,6 +429,7 @@ $ sudo reboot
 ```
 
 ## Setup themes
+
 ```
 $ sudo pacman -S kvantum-qt5
 
@@ -423,6 +474,7 @@ Path=/usr/bin
 ```
 
 There is a big issue with this approach, namely certain desktop environment settings cannot be accessed the right way.
+
 - The default web browser is reset to Konqueror
 - File dialogs are always light theme
 

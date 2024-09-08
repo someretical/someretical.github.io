@@ -23,6 +23,7 @@ Another prerequisite is that we need to statically compile OpenSSL. The environm
 > nmake
 > nmake install
 ```
+
 The `no-shared` flag is required to build `.lib` files that can be linked statically. We do not want `.lib` files that point to `.dll` files because the linker will do its job just fine but the program will choke when it runs.
 
 Now we can configure and build Qt. All the paths should use backslashes as separators except for `OPENSSL_OUTPUT_DIR` which should use forward slashes! We will be building a bare-bones version of Qt to reduce the build time.
@@ -111,7 +112,7 @@ ENDIF ()
 
 # Extras
 
-Adding the configuration below to the end of your `CMakeLists.txt` will build an exectuable that doesn't spawn a separate console window when you launch it. This only happens if you build the project in release mode though. 
+Adding the configuration below to the end of your `CMakeLists.txt` will build an exectuable that doesn't spawn a separate console window when you launch it. This only happens if you build the project in release mode though.
 
 ```
 IF (CMAKE_BUILD_TYPE MATCHES Release)
