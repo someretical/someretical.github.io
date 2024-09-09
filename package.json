@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@wooorm/starry-night": "^3.5.0"
+    "@wooorm/starry-night": "^3.5.0",
+    "hast-util-to-dom": "^4.0.0"
   }
 }
