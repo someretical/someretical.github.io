@@ -12,9 +12,9 @@
                 {{ $logo.Content | safeHTML }}
             </span>
             {{ else }}
-            <!-- Added border-radius: 50% -->
+            <!-- Added inline style -->
             <img src="{{ $logo.RelPermalink }}" width="{{ div $logo.Width 2 }}" height="{{ div $logo.Height 2 }}"
-                style="border-radius: 50%;"
+                style="border-radius: 50%; padding-top: 1rem; padding-bottom: 1rem; max-width: 3rem;"
                 class="logo max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="{{ .Site.Title }}" />
             {{ end }}
 
