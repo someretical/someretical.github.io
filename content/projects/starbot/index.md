@@ -1,0 +1,13 @@
+---
+title: Starbot
+summary: A Discord bot that provides a starboard for your server ⭐
+tags: ["projects", "discord.js", "node", "postgres"]
+---
+
+Starbot is a Discord bot that primarily adds a starboard. If server members react to a message with enough star reactions, then the bot will repost that message in a dedicated channel known as a starboard, thus saving the message. Since I wrote this bot like 4 years ago at this point, I feel like in the present day it would be much more aptly named skullboard or despairboard given how much the internet likes to react with skull emojis or the like.
+
+There is quite a bit to the backend of this project. It was written when Discord.js still supported extending the classes it provides. As a result, these extended classes are very closely intertwined with the database structures I wrote. This bot also takes advantage of the raw events from Discord which don't necessarily contain cached data since all it really needs are the IDs.
+
+This project uses the Sequelize ORM to communicate with the Postgres database in the backend. This was the best choice back then. These days, people seem to like Prisma a lot more.
+
+Overall, I am quite proud of this project. I rewrote many parts many times which allowed me to experiment with different methods of achieving my goals. In its current state, it unfortunately doesn't work because of overhauls Discord has made to its API.

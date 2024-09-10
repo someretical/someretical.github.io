@@ -1,10 +1,8 @@
 ---
 title: Making this website
 date: 2024-09-09
-draft: false
 summary: How this website was made
 tags: ["website"]
-heroStyle: "background"
 ---
 
 My old website was made with [MoonWalker](https://github.com/abhinavs/moonwalk) and it was simplistic enough except there was one major issue. This is probably a skill issue on my behalf but the project and template were super old and I couldn't get the dependency requirements to line up no matter what on my local machine. This frustration led me to experiment with [Hugo](https://gohugo.io/) which seemed to do the same thing as [Jekyll](https://jekyllrb.com/) but there were much better templates available. I'm mostly a backend person so that was a pretty great deal.

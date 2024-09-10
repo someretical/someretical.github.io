@@ -17,7 +17,7 @@ replyByEmail = true
 mainSections = ["projects", "posts"]
 # robots = ""
 
-disableImageOptimization = false
+disableImageOptimization = true
 disableTextInHeader = false
 # backgroundImageWidth = 1200
 
@@ -122,7 +122,7 @@ forgejoDefaultServer = "https://v8.next.forgejo.org"
   showTableOfContents = true
   groupByYear = false
   cardView = true
-  cardViewScreenWidth = true
+  cardViewScreenWidth = false
 
 [firebase]
   # apiKey = "XXXXXX"

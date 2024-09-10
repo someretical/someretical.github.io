@@ -1,7 +1,6 @@
 ---
 title: Yummers!
-date: 2023-05-23
-draft: false
+heroStyle: thumbAndBackground
 summary: Discord bot that celebrates server members' birthdays 🎉 (YUMMERS!!! 😋)
 tags: ["projects", "discord"]
 ---

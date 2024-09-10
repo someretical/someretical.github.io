@@ -1,10 +1,7 @@
 ---
 title: 72Bot
-date: 2023-05-23
-draft: false
 summary: A Minecraft-Discord chatbridge bot 🤖
 tags: ["projects", "discord", "minecraft"]
-heroStyle: "background"
 ---
 
 This chatbot requires a Minecraft and Discord bot account to work. It uses [mineflayer](https://www.npmjs.com/package/mineflayer) to connect to a Minecraft server using the account credentials. However, the connection process is not 100% optimized and it is possible to get your account locked. The Minecraft account will disconnect from the server if it somehow loses too much health. As usual, the semantics can be modified in the source code.
