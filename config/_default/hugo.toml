@@ -77,5 +77,4 @@ enableEmoji = true
       # using $ as the inline-delimiter (optional, maybe)
       delimiters.inline = [["\\(", "\\)"], ["$", "$"]]
   [markup.highlight]
-    style = "plaintext"
-    noClasses = false
+    codeFences = false
