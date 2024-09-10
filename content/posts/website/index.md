@@ -115,6 +115,8 @@ To rebuild with all our changes, we can just run `cd themes/blowfish && npm inst
 
 Our custom script `generate_starry_night.js` for invoking starry-night has to go in the actual website repository. This script is not that bad but took me absolutely ages to write because there wasn't any good example code for it; both ChatGPT and Copilot choked multiple times. This system is messy but it works which is what I ultimately need.
 
+What this solution breaks is the "copy" button normally located at the top right corner of code blocks. This is an unfortunate side effect of disabling code block parsing. A more advanced script could in theory find the inadequately formatted code blocks and strip all the `<span>`'s from them and then pass that back into starry-night to get the better formatted output. However, that is a project for another day.
+
 ## Improving Links
 
 The default Blowfish theme doesn't underline links when they are hovered over. It also doesn't highlight links if they are inside of code blocks. However, Github supports this and this also happens to be a feature I personally like. A related change I also want is to make inline code blocks have the same colour as the surrounding text. The following diff shows the changes I made to the forked theme repository.
@@ -178,3 +180,9 @@ The default Blowfish theme doesn't underline links when they are hovered over. I
 Now everything looks much better.
 
 ## Deploying to Github Pages
+
+This was the easiest part of the whole experience. The hardest part was getting the 404 page to load properly but that only required all assets it referenced to be placed in the static folder.
+
+## Conclusion
+
+The whole process took about 3 days but I am really happy with the result. The new website looks and feels much nicer at the cost of slightly worse SEO performance.
