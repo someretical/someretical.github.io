@@ -1,0 +1,10 @@
+{{ define "main" }}
+  <h1 class="mb-3 text-4xl font-extrabold">{{ i18n "error.404_title" | emojify }}</h1>
+  <p class="mt-8 mb-12 text-neutral-400 dark:text-neutral-500">
+    Uh oh...
+  </p>
+  <div class="prose dark:prose-invert">
+    <p>You've stumbled across a very mesmerizing image!</p>
+    <image src="img/circuit_diagram.png" alt="XKCD 730 Circuit Diagram" width="100%"></image>
+  </div>
+{{ end }}

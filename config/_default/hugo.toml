@@ -3,7 +3,7 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish"
-# baseURL = "https://your_domain.com/"
+baseURL = "http://localhost:1313"
 defaultContentLanguage = "en"
 
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
@@ -24,9 +24,9 @@ enableEmoji = true
 
 [taxonomies]
   tag = "tags"
-  category = "categories"
-  author = "authors"
-  series = "series"
+#  category = "categories"
+#  author = "authors"
+#  series = "series"
 
 [sitemap]
   changefreq = 'daily'
@@ -65,3 +65,17 @@ enableEmoji = true
       name = 'fragmentrefs'
       type = 'fragments'
       weight = 10
+
+# For MathJax
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+      delimiters.block = [["\\[", "\\]"], ["$$", "$$"]]
+      # using $ as the inline-delimiter (optional, maybe)
+      delimiters.inline = [["\\(", "\\)"], ["$", "$"]]
+  [markup.highlight]
+    style = "plaintext"
+    noClasses = false
