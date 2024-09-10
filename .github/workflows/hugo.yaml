@@ -71,7 +71,7 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       
       - name: Run starry-night
-        run: ls && node ./generate-starry-night.js
+        run: ls && node ./generate_starry_night.js
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
