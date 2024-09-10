@@ -42,6 +42,11 @@ jobs:
       - name: Install Dart Sass
         run: sudo snap install dart-sass
 
+      - name: Install Node.js v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -66,7 +71,7 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       
       - name: Run starry-night
-        run: node ./generate-starry-night.js
+        run: ls && node ./generate-starry-night.js
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
