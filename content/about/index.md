@@ -3,7 +3,7 @@ title: About me
 date: 2023-05-23
 draft: false
 summary: About me
-tags: false
+tags: []
 heroStyle: "background"
 showDate: false
 showEdit: false
