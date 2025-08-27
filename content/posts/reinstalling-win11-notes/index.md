@@ -1,7 +1,6 @@
 ---
 title: Lessons and notes on reinstalling Windows 11
 date: 2023-12-02
-draft: false
 summary: Lessons and notes on reinstalling Windows 11
 tags: ["windows"]
 ---

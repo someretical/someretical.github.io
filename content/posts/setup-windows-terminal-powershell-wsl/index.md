@@ -1,7 +1,6 @@
 ---
 title: Setting up Windows Terminal, Powershell and WSL
 date: 2025-08-28
-draft: false
 summary: Windows Terminal, Powershell and WSL
 tags: ["windows", "wsl", "powershell"]
 ---
