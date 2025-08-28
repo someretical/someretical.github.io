@@ -4,7 +4,7 @@ description: "Stuff that I have worked on"
 
 cascade:
   heroStyle: "background"
-  date: 9999-99-99
+  date: 1970
   showDate: false
   draft: false
 ---

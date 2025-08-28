@@ -5,7 +5,11 @@ summary: How this website was made
 tags: ["website"]
 ---
 
-My old website was made with [MoonWalker](https://github.com/abhinavs/moonwalk) and it was simplistic enough except there was one major issue. This is probably a skill issue on my behalf but the project and template were super old and I couldn't get the dependency requirements to line up no matter what on my local machine. This frustration led me to experiment with [Hugo](https://gohugo.io/) which seemed to do the same thing as [Jekyll](https://jekyllrb.com/) but there were much better templates available. I'm mostly a backend person so that was a pretty great deal.
+{{< mathjax >}}
+
+**This is an old post, see [here](/posts/website2/index.html) for the newer version!**
+
+My old website was made with [MoonWalker](https://github.com/abhinavs/moonwalk) and it was simplistic enough except there was one major issue. The project and template were super old and I couldn't get the dependency requirements to line up on my local machine no matter what. This frustration led me to experiment with [Hugo](https://gohugo.io/) which seemed to do the same thing as [Jekyll](https://jekyllrb.com/) except there were much better templates available. I'm mostly a backend person so that was a pretty great deal.
 
 I eventually found the Blowfish theme which is wonderfully configurable (although too much so at times). However, there were still some things to be addressed.
 
@@ -40,13 +44,13 @@ Now it is possible to render inline equations like \( E=mc^2 \) and much longer 
 
 There are a few things to watch out for though. Visual Studio Code might be annoying and convert all `_`'s into `*`'s so beware of that mucking up your equations.
 
-As a last note, there is some fuckery going on with the CSS that I do not fully understand. One of the inline stylesheets provided by Mathjax sets `mjx-container[jax="SVG"][display="true"]` to have `display: block` property which makes the display blocks take up the whole line by themselves. However, setting `display: inline-block` inside of `assets/css/main.css` for all `mjx-container` still works because the inline stylesheet overrides that or something? Doing this makes inline math blocks actually display inline and display blocks take up an entire line. I don't fully understand but it works so I am not going to touch it. I am just glad everything works:tm:.
+As a last note, there is something going on with the CSS that I do not fully understand. One of the inline stylesheets provided by Mathjax sets `mjx-container[jax="SVG"][display="true"]` to have `display: block` property which makes the display blocks take up the whole line by themselves. However, setting `display: inline-block` inside of `assets/css/main.css` for all `mjx-container` still works because the inline stylesheet overrides that or something? Doing this makes inline math blocks actually display inline and display blocks take up an entire line. I don't fully understand but it works so I am not going to touch it. I am just glad everything works:tm:.
 
 ## Adding Better Code Highlighting
 
 Hugo uses [Goldmark](https://github.com/yuin/goldmark/) to render markdown to HTML. If we want to change how code is highlighted, we will need to extend the project somehow. The way we want to render our code blocks is with starry-night. However, the problem is that Goldmark is written in Go while starry-night is written in TypeScript; these are very different languages.
 
-We can sidestep this whole mess with some more fuckery. If we add
+We can sidestep this whole mess with some more magic. If we add
 
 ```toml
   [markup.highlight]

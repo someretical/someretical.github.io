@@ -1,6 +1,6 @@
 ---
 title: Setting up Windows Terminal, Powershell and WSL
-date: 2025-08-28
+date: 2025-08-27
 summary: Windows Terminal, Powershell and WSL
 tags: ["windows", "wsl", "powershell"]
 ---
@@ -11,7 +11,7 @@ Recently, my Windows C drive has been running out of storage and I figured I bar
 
 1. `wsl --update`
 
-2. Download the .wsl file from `https://geo.mirror.pkgbuild.com/wsl/latest` 
+2. Download the .wsl file from `https://geo.mirror.pkgbuild.com/wsl/latest`.
 
 3. `wsl --install --from-file "D:\WSL\archlinux-2025.08.01.138229.wsl" --location "D:\WSL\" --name "archlinux"`
     - `--from-file` is your downloaded .wsl file
@@ -20,7 +20,7 @@ Recently, my Windows C drive has been running out of storage and I figured I bar
 
 If it doesn't work, reboot and try again. Make sure Hyper-V is enabled.
 
-4. Install basic packages and setup the user
+4. Install basic packages and setup the user.
 ```
 # pacman -Syu base-devel shadow zsh neovim sudo unzip git git-zsh-completion
 # passwd (set password for root)
@@ -29,11 +29,11 @@ If it doesn't work, reboot and try again. Make sure Hyper-V is enabled.
 # usermod -aG wheel,storage,power [USERNAME]
 ```
 
-5. `nvim /etc/sudoers` and uncomment the line %wheel ALL=(ALL) ALL
+5. `nvim /etc/sudoers` and uncomment the line `%wheel ALL=(ALL) ALL`.
 
-6. `# nvim /etc/wsl.conf` and add to the end
+6. `# nvim /etc/wsl.conf` and add to the end.
 
-```
+```ini
 [user]
 default=one
 ```
@@ -44,20 +44,20 @@ default=one
     - Set ParallelDownloads = 5
     - Add ILoveCandy (by itself)
 
-```
+```ini
 Color
 # NoProgressBar
 ParallelDownloads = 5
 ILoveCandy
 ```
 
-8. `nvim /etc/locale.gen` and uncomment the line `en_US.UTF-8 UTF-8`
+8. `nvim /etc/locale.gen` and uncomment the line `en_US.UTF-8 UTF-8`.
 
 9. `echo LANG="en_US.UTF-8" > /etc/locale.conf`
 
 10. `locale-gen`
 
-11. Using Powershell, run `wsl --terminate archlinux`
+11. Using Powershell, run `wsl --terminate archlinux`.
 
 ## Windows Terminal Setup
 
@@ -65,11 +65,11 @@ ILoveCandy
     - Mono means no ligatures
     - Nerd Font means it includes the powerline symbols
 
-2. Shift click settings button in Windows terminal to open settings.json
+2. Shift click settings button in Windows terminal to open settings.json.
 
 3. Add the following to the schemes array (not themes) and select the newly added theme.
 
-```
+```json
 {
   "name" : "Gruvbox Dark",
   "background" : "#282828",
@@ -93,9 +93,9 @@ ILoveCandy
 }
 ```
 
-4. Add the following to the font section to properly disable ligatures
+4. Add the following to the font section to properly disable ligatures.
 
-```
+```json
 "features": 
 {
     "calt": 0
@@ -112,7 +112,7 @@ ILoveCandy
 
 4. `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine` to allow unsigned scripts to run. This may require an admin terminal.
 
-5. `New-Item -Path $PROFILE -Type File -Force` create a new profile
+5. `New-Item -Path $PROFILE -Type File -Force` create a new profile.
 
 6. The profile can be found at `~/Documents/Powershell/`. Add `oh-my-posh init pwsh --config "gruvbox" | Invoke-Expression` to it.
 
@@ -121,17 +121,17 @@ ILoveCandy
 
 1. `sudo chsh -s /usr/bin/zsh`
 
-2. Restart WSL and then skip the setup for zsh
+2. Restart WSL and then skip the setup for zsh.
 
 3. `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 
 4. `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
 
-5. `git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && yay -Syu` install `yay`
+5. `git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && yay -Syu` install `yay`.
 
 6. `yay -S fortune-mod cowsay lolcat lsd`
 
-7. Add the following to `~/.zshrc`. Edit the default user as required
+7. Add the following to `~/.zshrc`. Edit the default user as required.
 
 ```zsh
 HISTFILE=~/.histfile
@@ -271,3 +271,17 @@ fortune | cowsay | lolcat
 ```
 
 8. Restart the terminal
+
+## Git setup
+
+The steps are the same for all platforms.
+
+1. `git config --global gpg.format ssh`
+2. `ssh-keygen -t ed25519` if you don't already have a key.
+3. Add the key to Github/Gitlab/whatever if you haven't already. You can add it as both signing and authenticating.
+4. `git config --global user.signingkey ~/.ssh/id_ed25519.pub`
+5. `git config --global commit.gpgsign true`
+6. `git config --global tag.gpgsign true`
+7. `git config --global format.signoff true` this is for Developer Certificate of Origin (DCO) or commit signoff policy (enforced by organization owners and repository admins).
+8. `git config --global user.name someretical`
+9. `git config --global user.email "29365738+someretical@users.noreply.github.com"`

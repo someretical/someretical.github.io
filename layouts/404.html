@@ -1,16 +1,17 @@
 {{ define "main" }}
-{{ $heroStyle := print "partials/hero/background.html" }}
+{{ $heroStyle := print "hero/background.html" }}
 {{ if templates.Exists $heroStyle }}
 {{ partial $heroStyle . }}
 {{ else }}
-{{ partial "partials/hero/basic.html" . }}
+{{ partial "hero/basic.html" . }}
 {{ end }}
 
+  <p>&nbsp;</p>
   <h1 class="mb-3 text-4xl font-extrabold">OMG!</h1>
   <p class="mt-8 mb-12 text-neutral-400 dark:text-neutral-500">
     You've stumbled across a very mesmerizing image!
   </p>
-  <div class="prose dark:prose-invert">
-    <image src="img/circuit_diagram.png" alt="XKCD 730 Circuit Diagram" width="100%"></image>
+  <div class="prose dark:prose-invert" style="display: block; margin: 0 auto;">
+    <image src="/img/circuit_diagram.png" alt="XKCD 730 Circuit Diagram" width="100%"></image>
   </div>
 {{ end }}
