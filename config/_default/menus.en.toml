@@ -25,6 +25,11 @@
   pageRef = "posts"
   weight = 30
 
+[[main]]
+    name = "Photos"
+    url = "https://gallery.yankai.dev"
+    weight = 40
+
 #[[main]]
 #  name = "Tags"
 #  pageRef = "tags"
